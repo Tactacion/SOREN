@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Video Player - Interactive Q&A</title>
+    <link rel="stylesheet" href="/static/chat.css">
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <h1>Interactive Video Player</h1>
+            <div class="video-container">
+                <video id="videoPlayer" controls>
+                    <source src="/video/{{ job_id }}/{{ video_number }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <button id="askButton" class="ask-button">
+                    ❓ Ask Question
+                </button>
+            </div>
+            
+            <div class="video-info">
+                <p><strong>Job ID:</strong> {{ job_id }}</p>
+                <p><strong>Video:</strong> {{ video_number }}</p>
+                <p id="timestamp">Current time: 0.0s</p>
+            </div>
+        </div>
+        
+        <div id="chatPanel" class="chat-panel hidden">
+            <div class="chat-header">
+                <h3>Ask About This Frame</h3>
+                <button id="closeChat">✕</button>
+            </div>
+            
+            <div id="chatMessages" class="chat-messages">
+                <div class="system-message">
+                    Paused at <span id="pausedTime">0.0</span>s. Ask anything about what you see!
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea id="questionInput" placeholder="What's happening in this scene? How does this work? ..."></textarea>
+                <button id="sendQuestion">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/chat.js"></script>
+    <script>
+        // Initialize with job_id and video_number
+        const JOB_ID = "{{ job_id }}";
+        const VIDEO_NUMBER = {{ video_number }};
+        
+        initVideoPlayer(JOB_ID, VIDEO_NUMBER);
+    </script>
+</body>
+</html>
